@@ -20,8 +20,12 @@
   },
   "homepage": "https://github.com/sgoldber61/react_app_tutorial#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.1.7"
   },
   "devDependencies": {
