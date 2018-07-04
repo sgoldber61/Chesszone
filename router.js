@@ -1,5 +1,5 @@
 const userController = require('./user/userController');
-const cookieController = require('./util/cookieController');
+const jwtController = require('./util/jwtController');
 
 // create server routes here
 module.exports = function(app) {
@@ -14,8 +14,7 @@ module.exports = function(app) {
   });
   
   // authentication operations
-  app.post('/auth/signin', userController.verifyUser, cookieController.setCookie);
-  app.post('/auth/signup', userController.signup, cookieController.setCookie);
-  app.post('/auth/signout', cookieController.removeCookie);
+  app.post('/auth/signin', userController.verifyUser, jwtController.sendJwt);
+  app.post('/auth/signup', userController.signup, jwtController.sendJwt);
 }
 

@@ -11,7 +11,8 @@ class Hello extends Component {
   componentDidMount() {
     axios.get('/api/hello')
       .then(response => {
-        this.setState({message: response.message});
+        console.log(response);
+        this.setState({message: response.data.message});
       })
       .catch(error => {
         this.setState({error: error.message})

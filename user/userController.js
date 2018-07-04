@@ -25,10 +25,13 @@ exports.signup = (req, res, next) => {
       password: password
     });
     
-    user.save(function(error) { // save to database
+    user.save(function(error, result) { // save to database
       if (error) {
         return res.status(400).send({message: error.message});
       }
+      // success
+      res.app.locals.id = result._id.toString();
+      res.app.locals.username = result.username;
       
       next();
     });
@@ -69,11 +72,11 @@ exports.verifyUser = (req, res, next) => {
 
 
 exports.requireAuth = (req, res, next) => {
-  if (!req.cookies.jwt) {
+  if (!req.headers.jwt) {
     return res.status(400).send({message: "Not logged in"});
   }
   
-  jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (error, decoded) => {
+  jwt.verify(req.headers.jwt, process.env.JWT_SECRET, (error, decoded) => {
     if (error) res.status(400).send({message: error.message});
     
     res.app.locals.id = decoded.id;

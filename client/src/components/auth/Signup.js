@@ -51,7 +51,7 @@ class Signup extends Component {
     
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <Field name='email' label='Email' component={this.renderField} />
+        <Field name='username' label='Username' component={this.renderField} />
         <Field name='password' label='Password' component={this.renderField} />
         <Field name='passwordConfirm' label='Confirm Password' component={this.renderField} />
         {this.renderAlert()}

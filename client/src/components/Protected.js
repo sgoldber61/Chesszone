@@ -9,18 +9,22 @@ class Protected extends Component {
   }
   
   componentDidMount() {
-    axios.get('/api/protected')
+    axios.get('/api/protected', {
+      headers: {jwt: sessionStorage.getItem('jwt') || ''}
+    })
       .then(response => {
-        this.setState({message: response.message});
+        console.log('setting state...');
+        this.setState({message: response.data.message});
       })
       .catch(error => {
-        this.setState({error: error.message})
+        console.log(error);
+        console.log(error.message);
       });
   }
   
   renderError() {
     if (!this.state.error) return null;
-    return <div>{this.state.error.message}</div>;
+    return <div>{this.state.error}</div>;
   }
   
   render() {

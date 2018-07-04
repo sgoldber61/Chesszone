@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 
 class Signin extends Component {
-  consturctor(props) {
+  constructor(props) {
     super(props);
     
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -46,7 +46,7 @@ class Signin extends Component {
     
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <Field name='email' label='Email' component={this.renderField} />
+        <Field name='username' label='Username' component={this.renderField} />
         <Field name='password' label='Password' component={this.renderField} />
         {this.renderAlert()/*for rendering an error message*/}
         <button type="submit" className="btn btn-primary">Sign in</button>
