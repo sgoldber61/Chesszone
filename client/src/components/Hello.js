@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Hello extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {message: ''};
+    this.state = {message: '', error: null};
   }
   
   componentDidMount() {
-    fetch('/api/hello')
-      .then(response => response.json())
-      .then(json => {
-        this.setState({message: json.message});
+    axios.get('/api/hello')
+      .then(response => {
+        this.setState({message: response.message});
+      })
+      .catch(error => {
+        this.setState({error: error.message})
       });
+  }
+  
+  renderError() {
+    if (!this.state.error) return null;
+    return <div>{this.state.error.message}</div>;
   }
   
   render() {
     return (
       <div>
-        {this.state.message || 'loading...'}
+        <div>{this.state.message || 'loading...'}</div>
+        {this.renderError()}
       </div>
     );
   }
 }
 
 export default Hello;
+

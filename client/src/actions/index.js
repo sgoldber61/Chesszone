@@ -37,15 +37,13 @@ export function authError(error) {
   return {type: types.AUTH_ERROR, payload: error.message};
 };
 
-export function signoutUser(history) {
+export function signoutUser() {
   // redux-thunk: return a function of dispatch from our action creator
   return function(dispatch) {
     axios.post('/auth/signout')
       .then(response => {
         dispatch({type: types.LOGOUT_USER});
         
-        // redirect to the home route
-        history.push('/');
       })
       .catch(error => {
         dispatch(authError(error));

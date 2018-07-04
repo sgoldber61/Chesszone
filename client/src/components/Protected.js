@@ -34,3 +34,4 @@ class Protected extends Component {
 }
 
 export default Protected;
+
