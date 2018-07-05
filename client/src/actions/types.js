@@ -12,8 +12,5 @@ export const JOIN_PENDING_AND_BEGIN = 'join_pending_and_begin';
 export const BEGIN_GAME = 'begin_game';
 
 // board action types
-export const INIT_BOARD = 'init_board';
-export const MAKE_MOVE = 'make_move';
 export const RECEIVE_MOVE = 'receive_move';
-
 

@@ -127,11 +127,9 @@ export function startGame(oppId, history) {
 
 // board actions
 
-export function initBoard(color) {
-  return {type: types.INIT_BOARD, payload: color === 'white'};
+export function receiveMove(fen) {
+  return {type: types.RECEIVE_MOVE, payload: fen};
 }
-
-
 
 
 

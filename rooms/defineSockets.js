@@ -18,7 +18,13 @@ module.exports = function(io, app) {
       app.locals.lobby.pendingToActive(data.pendingId, socket.id, data.joiningUsername);
       
       // broadcast to the pending player that the game is to start
-      socket.broadcast.to(data.pendingId).emit('agree to game', {socketId: socket.id, username: data.joiningUsername});
+      socket.broadcast.to(data.pendingId).emit('agree to game', {oppId: socket.id, username: data.joiningUsername});
+    });
+    
+    // player sends a fen for a successful chess game move
+    socket.on('send fen', function(data) {
+      // receiving player's socketId, sending player's fen
+      socket.broadcast.to(data.receivingId).emit('receive fen', {fen: data.fen});
     });
   });
 };
