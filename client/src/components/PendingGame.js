@@ -6,7 +6,7 @@ class PendingGame extends Component {
   componentDidMount() {
     const socket = this.props.socket;
     
-    socket.on('agree to game', function(data) {
+    socket.on('agree to game', (data) => {
       this.props.startGame(data.oppId, this.props.history);
     });
   }
@@ -21,6 +21,6 @@ function mapStateToProps(state) {
   return {socket: state.game.socket};
 }
 
-export default connect(mapStateToProps, actions)(CreateGame);
+export default connect(mapStateToProps, actions)(PendingGame);
 
 

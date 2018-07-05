@@ -108,7 +108,7 @@ export function joinPendingGame(pendingId, joiningUsername, history) {
     socket.on('connect', () => {
       socket.emit('join room', {pendingId, joiningUsername});
       
-      dispatch({type: types.JOIN_PENDING_AND_BEGIN, payload: {socket, oppId: pendingId});
+      dispatch({type: types.JOIN_PENDING_AND_BEGIN, payload: {socket, oppId: pendingId}});
       
       // redirect to the game room
       history.push('/game');

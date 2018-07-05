@@ -19,8 +19,8 @@ class FindGames extends Component {
   }
   
   renderPendingGames() {
-    const socketIds = Object.keys(pendingUsers);
-    const data = socketIds.map(socketId => ({socketId, username: pendingUsers[socketId]}));
+    const socketIds = Object.keys(this.props.pendingUsers);
+    const data = socketIds.map(socketId => ({socketId, username: this.props.pendingUsers[socketId]}));
     
     return data.map(element => {
       return (
@@ -46,5 +46,5 @@ function mapStateToProps(state) {
   return {username: state.auth.username, pendingUsers: state.game.pendingUsers};
 }
 
-export default connect(mapStateToProps, actions)(CreateGame);
+export default connect(mapStateToProps, actions)(FindGames);
 
