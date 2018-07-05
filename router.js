@@ -1,3 +1,6 @@
+const express = require('express');
+const path = require('path');
+
 const userController = require('./user/userController');
 const jwtController = require('./util/jwtController');
 const roomsController = require('./rooms/roomsController');
@@ -27,5 +30,10 @@ module.exports = function(app) {
   app.get('/api/tracklocals', (req, res) => {
     res.send(app.locals);
   });
+  
+  // serving images from server
+  app.use('/img/chesspieces/wikipedia', express.static(path.join(__dirname, 'images')));
 };
+
+
 

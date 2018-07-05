@@ -2,21 +2,34 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 
-import {Chess} from 'chess.js';
+import $ from 'jquery';
+
+
+// import {Chess} from 'chess.js';
+import Chess from 'chess.js';
 import * as ChessBoard from 'chessboardjs';
+
+window.$ = $
+window.jQuery = $
 
 class Game extends Component {
   constructor(props) {
     super(props);
+    
+    this.onDrop = this.onDrop.bind(this);
   }
+  
   
   setupChess(canMove) {
     // set up chess platform
     this.chess = new Chess(this.props.oppFen);
     
+    console.log(this.props.oppFen);
+    
     this.board = ChessBoard('board', {
       draggable: canMove,
       position: this.props.oppFen,
+      // position: 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R',
       onDrop: this.onDrop,
       orientation: this.props.color
     });
@@ -56,7 +69,7 @@ class Game extends Component {
   }
   
   render() {
-    return <div id="board" style="width: 400px"></div>;
+    return <div id="board" style={{width: '400px'}}></div>;
   }
 }
 
