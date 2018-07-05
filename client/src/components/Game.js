@@ -4,29 +4,23 @@ import * as actions from '../actions';
 
 import {Chess} from 'chess.js';
 import * as ChessBoard from 'chessboardjs';
-import * as randomstring from 'randomstring';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {id: null};
   }
   
   setupChess(canMove) {
     // set up chess platform
     this.chess = new Chess(this.props.oppFen);
     
-    const id = randomstring.generate();
-    
-    this.board = ChessBoard(id, {
+    this.board = ChessBoard('board', {
       draggable: canMove,
       position: this.props.oppFen,
       onDrop: this.onDrop,
       orientation: this.props.color
     });
-    
-    this.setState({id});
   }
   
   componentDidMount() {
@@ -57,7 +51,7 @@ class Game extends Component {
   }
   
   render() {
-    return <div id={this.state.id} style="width: 400px"></div>;
+    return <div id="board" style="width: 400px"></div>;
   }
 }
 
