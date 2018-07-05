@@ -28,6 +28,7 @@ class Game extends Component {
     console.log(this.props.oppId);
     // data: fen (for opponent's fen)
     this.props.socket.on('receive fen', data => {
+      console.log('receiving move...');
       this.props.receiveMove(data.fen);
     });
     
@@ -41,13 +42,15 @@ class Game extends Component {
   }
   
   onDrop(source, target, piece, newPos, oldPos, orientation) {
-    // if target is on board, make move
-    
-    // was the move valid?
+    // was the move valid? if not, return 'snapback'
+    if (!this.chess.move({from: source, to: target})) return 'snapback';
     
     // set self to have already moved
+    // TO DO WE WILL ADD THIS LATER
+    // this.setupChess(false);
     
-    // broadcase move to opponent
+    // broadcast move to opponent
+    this.props.socket.emit('send fen', {receivingId: this.props.oppId, fen: this.chess.fen()});
   }
   
   render() {
