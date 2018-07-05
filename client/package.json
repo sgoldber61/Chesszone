@@ -17,6 +17,7 @@
     "axios": "^0.18.0",
     "chess.js": "^0.10.2",
     "chessboardjs": "0.0.1",
+    "randomstring": "^1.1.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",

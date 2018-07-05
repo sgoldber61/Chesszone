@@ -4,12 +4,29 @@ import * as actions from '../actions';
 
 import {Chess} from 'chess.js';
 import * as ChessBoard from 'chessboardjs';
+import * as randomstring from 'randomstring';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {initialized: false};
+    this.state = {id: null};
+  }
+  
+  setupChess(canMove) {
+    // set up chess platform
+    this.chess = new Chess(this.props.oppFen);
+    
+    const id = randomstring.generate();
+    
+    this.board = ChessBoard(id, {
+      draggable: canMove,
+      position: this.props.oppFen,
+      onDrop: this.onDrop,
+      orientation: this.props.color
+    });
+    
+    this.setState({id});
   }
   
   componentDidMount() {
@@ -20,19 +37,13 @@ class Game extends Component {
       this.props.receiveMove(data.fen);
     });
     
-    // set up chess platform
-    this.chess = new Chess(this.props.oppFen);
-    
-    this.board = ChessBoard({
-      draggable: this.props.canMove,
-      position: this.props.oppFen,
-      onDrop: this.onDrop,
-      orientation: this.props.color
-    });
+    const canMove = this.props.color === 'white';
+    this.setupChess(canMove);
   }
   
+  // upon redux update, which occurs upon websocket signal
   componentDidUpdate() {
-    
+    this.setupChess(true);
   }
   
   onDrop(source, target, piece, newPos, oldPos, orientation) {
@@ -46,9 +57,7 @@ class Game extends Component {
   }
   
   render() {
-    if (!this.state.initialized) return <div></div>;
-    
-    
+    return <div id={this.state.id} style="width: 400px"></div>;
   }
 }
 
@@ -59,5 +68,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, actions)(PendingGame);
+export default connect(mapStateToProps, actions)(Game);
 
