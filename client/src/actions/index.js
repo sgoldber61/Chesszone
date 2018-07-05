@@ -56,20 +56,3 @@ export function clearError() {
 };
 
 
-// ---------------------------------------------------------------------
-
-/*
-export function fetchUser() {
-  return function(dispatch) {
-    axios.get('/auth/get_user')
-      .then(response => {
-        console.log(response.data.username);
-        dispatch({type: types.FETCH_USER, payload: response.data.username});
-      })
-      .catch(error => {
-        dispatch(authError(error));
-      });
-  }
-}
-*/
-

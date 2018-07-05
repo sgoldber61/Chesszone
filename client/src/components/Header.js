@@ -11,8 +11,8 @@ class Header extends Component {
         <li className="nav-item" key={'creategame'}>
           <Link className="nav-link" to="/creategame">Create Game</Link>
         </li>,
-        <li className="nav-item" key={'searchgames'}>
-          <Link className="nav-link" to="/searchgames">Search Games</Link>
+        <li className="nav-item" key={'findgames'}>
+          <Link className="nav-link" to="/findgames">Find Games</Link>
         </li>,
         <li className="nav-item" key={'signout'}>
           <Link className="nav-link" to="/signout">Sign Out</Link>

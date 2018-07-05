@@ -1,8 +1,10 @@
 const userController = require('./user/userController');
 const jwtController = require('./util/jwtController');
+const roomsController = require('./rooms/roomsController');
 
 // create server routes here
 module.exports = function(app) {
+  // primary operations
   app.get('/api/hello', (req, res) => {
     res.send({message: 'Hi! Here is some content from the server.'});
   });
@@ -13,8 +15,10 @@ module.exports = function(app) {
     });
   });
   
+  app.get('/api/rooms', userController.requireAuth, (req, res) => roomsController.findRooms(app, req, res));
+  
   // authentication operations
   app.post('/auth/signin', userController.verifyUser, jwtController.sendJwt);
   app.post('/auth/signup', userController.signup, jwtController.sendJwt);
-}
+};
 
