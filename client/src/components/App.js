@@ -8,6 +8,7 @@ import Protected  from './Protected.js';
 import CreateGame from './CreateGame.js';
 import FindGames from './FindGames.js';
 import PendingGame from './PendingGame.js';
+import Game from './Game.js';
 
 import Signin from './auth/Signin.js';
 import Signup from './auth/Signup.js';
@@ -33,6 +34,7 @@ class App extends Component {
             <Route path="/creategame" component={RequireAuth(CreateGame)} />
             <Route path="/findgames" component={RequireAuth(FindGames)} />
             <Route path="/pendinggame" component={RequireAuth(PendingGame)} />
+            <Route path="/game" component={RequireAuth(Game)} />
           </Switch>
         </div>
       </BrowserRouter>

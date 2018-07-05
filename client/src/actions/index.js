@@ -125,4 +125,13 @@ export function startGame(oppId, history) {
   }
 }
 
+// board actions
+
+export function initBoard(color) {
+  return {type: types.INIT_BOARD, payload: color === 'white'};
+}
+
+
+
+
 
