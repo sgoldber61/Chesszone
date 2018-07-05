@@ -7,4 +7,7 @@ export const CLEAR_AUTH_ERROR = 'clear_auth_error';
 
 // game action types
 export const INIT_PENDING = 'init_pending';
+export const FIND_PENDING = 'find_pending';
+export const JOIN_PENDING_AND_BEGIN = 'join_pending_and_begin';
+export const BEGIN_GAME = 'begin_game';
 

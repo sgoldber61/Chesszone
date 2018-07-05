@@ -6,6 +6,8 @@ import Home from './Home.js';
 import Hello from './Hello.js';
 import Protected  from './Protected.js';
 import CreateGame from './CreateGame.js';
+import FindGames from './FindGames.js';
+import PendingGame from './PendingGame.js';
 
 import Signin from './auth/Signin.js';
 import Signup from './auth/Signup.js';
@@ -29,6 +31,8 @@ class App extends Component {
             <Route path="/protected" component={RequireAuth(Protected)} />
             {/*primary routes*/}
             <Route path="/creategame" component={RequireAuth(CreateGame)} />
+            <Route path="/findgames" component={RequireAuth(FindGames)} />
+            <Route path="/pendinggame" component={RequireAuth(PendingGame)} />
           </Switch>
         </div>
       </BrowserRouter>

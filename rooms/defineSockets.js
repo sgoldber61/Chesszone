@@ -16,6 +16,9 @@ module.exports = function(io, app) {
     socket.on('join room', function(data) {
       // pending player's socketId, joining player's socketId, joining player's username
       app.locals.lobby.pendingToActive(data.pendingId, socket.id, data.joiningUsername);
+      
+      // broadcast to the pending player that the game is to start
+      socket.broadcast.to(data.pendingId).emit('agree to game', {socketId: socket.id, username: data.joiningUsername});
     });
   });
 };

@@ -80,11 +80,49 @@ export function initPendingGame(username, history) {
     socket.on('connect', () => {
       socket.emit('start room', {username});
       
-      // redirect to the chess room!!!
+      dispatch({type: types.INIT_PENDING, payload: socket});
       
-      dispatch({type: types.INIT_PENDING});
+      // redirect to the pending room. define socket behavior within the pendinggame
+      history.push('/pendinggame');
     });
+    
   };
 };
+
+export function findPendingGames(username, history) {
+  return function(dispatch) {
+    axios.get('/api/rooms', {
+      headers: {jwt: sessionStorage.getItem('jwt') || ''}
+    }).then(response => {
+      dispatch({type: types.FIND_PENDING, payload: response.data.pendingUsers});
+    }).catch(error => {
+      dispatch(authError(error));
+    });
+  };
+}
+
+export function joinPendingGame(pendingId, joiningUsername, history) {
+  return function(dispatch) {
+    const socket = io();
+    
+    socket.on('connect', () => {
+      socket.emit('join room', {pendingId, joiningUsername});
+      
+      dispatch({type: types.JOIN_PENDING_AND_BEGIN, payload: {socket, oppId: pendingId});
+      
+      // redirect to the game room
+      history.push('/game');
+    });
+  };
+}
+
+export function startGame(oppId, history) {
+  return function(dispatch) {
+    dispatch({type: types.BEGIN_GAME, payload: oppId});
+    
+    // redirect to the game room
+    history.push('/game');
+  }
+}
 
 
