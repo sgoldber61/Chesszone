@@ -1,7 +1,11 @@
 import * as types from '../actions/types.js';
 
-export default function(state = {auth: false, username: null, error: null}, action) {
+const initState = {auth: false, username: null, error: null};
+
+export default function(state = initState, action) {
   switch (action.type) {
+    case types.FETCH_USER:
+      return {...state, username: action.payload};
     case types.AUTH_USER:
       return {...state, auth: true};
     case types.LOGOUT_USER:

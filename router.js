@@ -18,7 +18,14 @@ module.exports = function(app) {
   app.get('/api/rooms', userController.requireAuth, (req, res) => roomsController.findRooms(app, req, res));
   
   // authentication operations
+  app.get('/auth/fetchuser', userController.requireAuth, userController.fetchUser);
   app.post('/auth/signin', userController.verifyUser, jwtController.sendJwt);
   app.post('/auth/signup', userController.signup, jwtController.sendJwt);
+  
+  
+  // debugging operations
+  app.get('/api/tracklocals', (req, res) => {
+    res.send(app.locals);
+  });
 };
 

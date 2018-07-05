@@ -1,5 +1,20 @@
 import axios from 'axios';
 import * as types from './types.js';
+import io from 'socket.io-client';
+
+// auth actions
+
+export function fetchUser() {
+  return function(dispatch) {
+    axios.get('/auth/fetchuser', {
+      headers: {jwt: sessionStorage.getItem('jwt') || ''}
+    }).then(response => {
+      dispatch({type: types.FETCH_USER, payload: response.data.username});
+    }).catch(error => {
+      dispatch(authError(error));
+    });
+  };
+}
 
 export function signinUser({username, password}, history) {
   // redux-thunk: return a function of dispatch from our action creator
@@ -53,6 +68,23 @@ export function signoutUser() {
 
 export function clearError() {
   return {type: types.CLEAR_AUTH_ERROR};
+};
+
+
+// game actions
+
+export function initPendingGame(username, history) {
+  return function(dispatch) {
+    const socket = io();
+    
+    socket.on('connect', () => {
+      socket.emit('start room', {username});
+      
+      // redirect to the chess room!!!
+      
+      dispatch({type: types.INIT_PENDING});
+    });
+  };
 };
 
 

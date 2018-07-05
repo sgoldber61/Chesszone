@@ -1,6 +1,11 @@
 const User = require('./userModel');
 const jwt = require('jsonwebtoken');
 
+exports.fetchUser = (req, res) => {
+  const {username} = res.app.locals;
+  res.send({username});
+};
+
 exports.signup = (req, res, next) => {
   const {username, password} = req.body;
   

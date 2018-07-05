@@ -5,6 +5,7 @@ import Header from './Header.js';
 import Home from './Home.js';
 import Hello from './Hello.js';
 import Protected  from './Protected.js';
+import CreateGame from './CreateGame.js';
 
 import Signin from './auth/Signin.js';
 import Signup from './auth/Signup.js';
@@ -19,11 +20,15 @@ class App extends Component {
           <Header />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/hello" component={Hello} />
-            <Route path="/protected" component={RequireAuth(Protected)} />
+            {/*auth routes*/}
             <Route path="/signin" component={Signin} />
             <Route path="/signout" component={Signout} />
             <Route path="/signup" component={Signup} />
+            {/*basic test routes*/}
+            <Route path="/hello" component={Hello} />
+            <Route path="/protected" component={RequireAuth(Protected)} />
+            {/*primary routes*/}
+            <Route path="/creategame" component={RequireAuth(CreateGame)} />
           </Switch>
         </div>
       </BrowserRouter>
