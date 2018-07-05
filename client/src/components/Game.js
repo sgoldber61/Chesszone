@@ -8,7 +8,6 @@ import * as ChessBoard from 'chessboardjs';
 class Game extends Component {
   constructor(props) {
     super(props);
-    
   }
   
   setupChess(canMove) {
@@ -42,7 +41,10 @@ class Game extends Component {
   }
   
   onDrop(source, target, piece, newPos, oldPos, orientation) {
-    // was the move valid? if not, return 'snapback'
+    // was the target off screen?
+    if (target === 'offboard') return 'snapback';
+    
+    // was the move valid? if not (i.e. this.chess.move is null), return 'snapback'
     if (!this.chess.move({from: source, to: target})) return 'snapback';
     
     // set self to have already moved
