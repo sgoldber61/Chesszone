@@ -1,7 +1,7 @@
-exports.findRooms = (app, req, res) => {
-  const pendingUsers = app.locals.lobby.pendingUsers;
+exports.findRooms = (req, res) => {
+  const pendingUsers = res.app.locals.lobby.pendingUsers;
   const socketIds = Object.keys(pendingUsers);
   
-  return socketIds.map(socketId => ({socketId, username: pendingUsers[socketId]}));
+  res.send(socketIds.map(socketId => ({socketId, username: pendingUsers[socketId]})));
 };
 

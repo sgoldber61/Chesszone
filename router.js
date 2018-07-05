@@ -15,7 +15,7 @@ module.exports = function(app) {
     });
   });
   
-  app.get('/api/rooms', userController.requireAuth, (req, res) => roomsController.findRooms(app, req, res));
+  app.get('/api/rooms', userController.requireAuth, roomsController.findRooms);
   
   // authentication operations
   app.get('/auth/fetchuser', userController.requireAuth, userController.fetchUser);

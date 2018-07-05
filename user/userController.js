@@ -2,7 +2,7 @@ const User = require('./userModel');
 const jwt = require('jsonwebtoken');
 
 exports.fetchUser = (req, res) => {
-  const {username} = res.app.locals;
+  const {username} = res.locals;
   res.send({username});
 };
 
@@ -35,8 +35,8 @@ exports.signup = (req, res, next) => {
         return res.status(400).send({message: error.message});
       }
       // success
-      res.app.locals.id = result._id.toString();
-      res.app.locals.username = result.username;
+      res.locals.id = result._id.toString();
+      res.locals.username = result.username;
       
       next();
     });
@@ -66,8 +66,8 @@ exports.verifyUser = (req, res, next) => {
       return Promise.reject(new Error('password doeesn\'t match'));
     }
     // success
-    res.app.locals.id = _user._id.toString();
-    res.app.locals.username = _user.username;
+    res.locals.id = _user._id.toString();
+    res.locals.username = _user.username;
     
     next();
   }).catch((error) => {
@@ -84,8 +84,8 @@ exports.requireAuth = (req, res, next) => {
   jwt.verify(req.headers.jwt, process.env.JWT_SECRET, (error, decoded) => {
     if (error) res.status(400).send({message: error.message});
     
-    res.app.locals.id = decoded.id;
-    res.app.locals.username = decoded.username;
+    res.locals.id = decoded.id;
+    res.locals.username = decoded.username;
     next();
   });
 };
