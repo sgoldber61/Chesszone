@@ -25,7 +25,7 @@ class FindGames extends Component {
     return data.map(element => {
       return (
         <li className="list-group-item" key={element.socketId}>
-          <span onClick={() => this.joinGame(element.socketId)}>{element.username}</span>
+          <button className="btn btn-primary" onClick={() => this.joinGame(element.socketId)}>{element.username}</button>
         </li>
       );
     });

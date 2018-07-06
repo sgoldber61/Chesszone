@@ -19,8 +19,15 @@ class CreateGame extends Component {
   }
   
   render() {
-    if (this.props.username) return <div>Create game <button className="btn btn-primary" onClick={this.initGame}>here</button></div>;
-    else return <div>Fetching user...</div>;
+    if (this.props.username) {
+      return (<div>
+        <div>Create a game room and wait for another user to join.</div>
+        <div><button className="btn btn-primary" onClick={this.initGame}>Create</button></div>
+      </div>);
+    }
+    else {
+      return <div>Fetching user...</div>;
+    }
   }
 }
 
