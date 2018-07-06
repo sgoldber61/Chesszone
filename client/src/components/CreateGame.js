@@ -26,7 +26,7 @@ class CreateGame extends Component {
       </div>);
     }
     else {
-      return <div>Fetching user...</div>;
+      return <div></div>;
     }
   }
 }
