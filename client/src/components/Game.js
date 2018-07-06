@@ -4,7 +4,6 @@ import * as actions from '../actions';
 
 import $ from 'jquery';
 
-
 // import {Chess} from 'chess.js';
 import Chess from 'chess.js';
 import * as ChessBoard from 'chessboardjs';
@@ -15,6 +14,8 @@ window.jQuery = $
 class Game extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {win: false};
     
     this.onDrop = this.onDrop.bind(this);
   }
@@ -28,8 +29,8 @@ class Game extends Component {
     
     this.board = ChessBoard('board', {
       draggable: canMove,
-      position: this.props.oppFen,
-      // position: 'r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R',
+      // position: this.props.oppFen,
+      position: this.state.fenOverride || this.props.oppFen,
       onDrop: this.onDrop,
       orientation: this.props.color
     });
@@ -41,7 +42,7 @@ class Game extends Component {
     // data: fen (for opponent's fen)
     this.props.socket.on('receive fen', data => {
       console.log('receiving move...');
-      this.props.receiveMove(data.fen);
+      this.props.receiveMove(data.fen, data.checkmate);
     });
     
     const canMove = this.props.color === 'white';
@@ -65,18 +66,34 @@ class Game extends Component {
     // this.setupChess(false);
     
     // broadcast move to opponent
-    this.props.socket.emit('send fen', {receivingId: this.props.oppId, fen: this.chess.fen()});
+    const checkmate = this.chess.in_checkmate();
+    this.props.socket.emit('send fen', {receivingId: this.props.oppId, fen: this.chess.fen(), checkmate});
+    // did we win the game?
+    if (checkmate) this.setState({win: true, fenOverride: this.chess.fen()});
+  }
+  
+  renderResults() {
+    if (this.state.win)
+      return <div>{'Checkmate. You have won the game!'}</div>;
+    else if (this.props.checkmate)
+      return <div>{'Checkmate. You have lost the game...'}</div>;
+    else
+      return null;
   }
   
   render() {
-    return <div id="board" style={{width: '400px'}}></div>;
+    return (<div>
+      <div id="board" style={{width: '400px'}}></div>
+      {this.renderResults()}
+    </div>);
   }
 }
 
 
 function mapStateToProps(state) {
   return {color: state.game.color, socket: state.game.socket,
-    oppId: state.game.oppId, oppFen: state.board.oppFen
+    oppId: state.game.oppId, oppFen: state.board.oppFen,
+    checkmate: state.board.checkmate
   };
 }
 

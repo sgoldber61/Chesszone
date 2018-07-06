@@ -23,8 +23,8 @@ module.exports = function(io, app) {
     
     // player sends a fen for a successful chess game move
     socket.on('send fen', function(data) {
-      // receiving player's socketId, sending player's fen
-      socket.broadcast.to(data.receivingId).emit('receive fen', {fen: data.fen});
+      // receiving player's socketId, sending player's fen, checkmate condition
+      socket.broadcast.to(data.receivingId).emit('receive fen', {fen: data.fen, checkmate: data.checkmate});
     });
   });
 };

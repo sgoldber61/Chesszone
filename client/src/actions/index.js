@@ -127,8 +127,8 @@ export function startGame(oppId, history) {
 
 // board actions
 
-export function receiveMove(fen) {
-  return {type: types.RECEIVE_MOVE, payload: fen};
+export function receiveMove(oppFen, checkmate) {
+  return {type: types.RECEIVE_MOVE, payload: {oppFen, checkmate}};
 }
 
 
